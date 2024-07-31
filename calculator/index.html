@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="shorcut icon" href="OIP.jpeg">
+</head>
+<style>
+    body{
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: hsl(0, 0%, 95%);
+    }
+    button{
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        border: none;
+        background-color: hsl(0, 0%, 30%);
+        color: white;
+        font-size: 3rem;
+        cursor: pointer;
+        position: relative;
+    }
+    button::after,button::before{
+        content: '';
+        position: absolute;
+        padding: 3px;
+        height: 100%;
+        width: 100%;
+        border-radius: 50px ;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        z-index: -1;
+        background-image: conic-gradient(from var(--angle), transparent 70% , blue);
+        animation: 3s spin linear infinite;
+    }
+    #card::before{
+        filter: blur(1.5rem);
+    }
+    @property --angle{
+        syntax:"<angle>";
+        initial-value: 0deg;
+        inherits: false;
+    }
+    @keyframes spin{
+        from{
+            --angle: 0deg;
+        }
+        to{
+            --angle: 360deg
+        }
+    }
+    #keys{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        gap: 10px;
+        padding: 25px;
+    }
+    #calculator{
+        background-color: hsl(0, 0%, 15%);
+        border-radius: 20px;
+        max-width: 500px;
+        overflow: hidden;
+    }
+    #display{
+        width: 100%;
+        padding: 20px;
+        font-size: 5rem;
+        text-align: left;
+        border: none;
+        background-color: hsl(0, 0%, 20%);
+        color: white;
+    }
+</style>
+<body>
+    <div id="calculator">
+        <input id="display" readonly>
+        <div id="keys">
+            <button onclick="AddOnDisplay('+')">+</button>
+            <button onclick="AddOnDisplay('7')">7</button>
+            <button onclick="AddOnDisplay('8')">8</button>
+            <button onclick="AddOnDisplay('9')">9</button>
+            <button onclick="AddOnDisplay('-')">-</button>
+            <button onclick="AddOnDisplay('4')">4</button>
+            <button onclick="AddOnDisplay('5')">5</button>
+            <button onclick="AddOnDisplay('6')">6</button>
+            <button onclick="AddOnDisplay('*')">*</button>
+            <button onclick="AddOnDisplay('1')">1</button>
+            <button onclick="AddOnDisplay('2')">2</button>
+            <button onclick="AddOnDisplay('3')">3</button>
+            <button onclick="AddOnDisplay('/')">/</button>
+            <button onclick="AddOnDisplay('. ')">. </button>
+            <button onclick="operation()">=</button>
+            <button onclick="clearDisp()">C</button>
+        </div>
+    </div>
+</body>
+<script>
+    const display = document.getElementById("display")
+    function AddOnDisplay(input){
+        display.value += input;
+    }
+    function clearDisp(){
+        display.value = ""
+    }
+    function operation(){
+        try{
+            display.value = eval(display.value);
+        }
+        catch(error){
+            display.value = "Error"
+        }
+    }
+</script>
+</html>
